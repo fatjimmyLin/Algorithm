@@ -4,7 +4,8 @@ import java.util.Stack;
 /**
  * Created by fatjimmy on 17/5/28.
  */
-// leetcode 572 offer 18; leetcode 101; leetcode 226 offer 19; leetcode 102 offer 23; leetcode 113 offer 25; leetcode 114
+// leetcode 572 offer 18; leetcode 101; leetcode 226 offer 19; leetcode 102 offer 23; leetcode 113 offer 25; leetcode 114;
+// offer 39 leetcode 104;
     // leetcode 617
 public class Bintrees {
     private static List<TreeNode> nodeList = null;
@@ -236,7 +237,27 @@ public class Bintrees {
         t1.right = mergeTrees(t1.right,t2.right);
         return t1;
     }
+    //offer 39 leetcode 104
+    public static int maxDepth(TreeNode root) {
+        if(root == null) return 0;
 
+        int left = maxDepth(root.left);
+        int right = maxDepth(root.right);
+        if(left>right) return left+1;
+        else return right+1;
+    }
+    //offer 39 leetcode 110
+    public static boolean isBalanced(TreeNode root) {
+        if(root == null) return true;
+
+        int left = maxDepth(root.left);
+        int right = maxDepth(root.right);
+        int diff = left - right;
+        if(diff>1 || diff<-1){
+            return false;
+        }
+        return isBalanced(root.right) && isBalanced(root.left);
+    }
     public static void main(String[] args) {
         Bintrees binTree = new Bintrees();
         int[] array1 = {1,2,9,3,6,10,13,4,5,7,8,11,12,14,15};
@@ -270,9 +291,10 @@ public class Bintrees {
         // leetcode 101  boolean flag = binTree.isSymmetric(root1);
         // leetcode 617 TreeNode root = binTree.mergeTrees(root1,root2);
         // leetcode 114 binTree.flatten(root1);
-        System.out.println("前序遍历1：");
-        preOrderTraverse(root1);
+        // leetcode 104 int i = binTree.maxDepth(root1);
+        // leetcode 110 boolean flag = binTree.isBalanced(root1);
         System.out.println();
 
+        //System.out.println("balanced tree："+flag);
     }
 }
