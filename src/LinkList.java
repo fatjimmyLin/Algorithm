@@ -1,3 +1,4 @@
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -153,26 +154,54 @@ public class LinkList {
             }
             return null;
         }
+        //offer 45
+        public static int Josephus(ListNode head,int m){
+            ListNode current = head;
+            while(current.next!=current){
+                for(int i=1;i<m-1;i++){
+                    if(current.next == null){
+                        current.next = head;
+                    }else{
+                        current = current.next;
+                    }
+                }
+                if(current.next == null){
+                    current.next = head;
+                    current.next = current.next.next;
+                    head = current.next.next;
+                }else{
+                    current.next = current.next.next;
+                }
+                if(current.next == null){
+                    current.next = head;
+                }else {
+                    current = current.next;
+                }
+            }
+            return current.data;
+        }
         public static void main(String[] args) {
             LinkList ListNode1 = new LinkList();
             LinkList ListNode2 = new LinkList();
-            int[] array1 ={1,2,3,4,5};
+            int[] array1 ={0,1,2,3,4};
             int[] array2 ={6,7,8,9,10};
             //向LinkList中添加数据
             for (int i = 0; i < array1.length; i++) {
                 ListNode1.add(array1[i]);
             }
-            for (int i = 0; i < array2.length; i++) {
-                ListNode2.add(array2[i]);
-            }
+//            for (int i = 0; i < array2.length; i++) {
+//                ListNode2.add(array2[i]);
+//            }
             /*Scanner read = new Scanner(System.in); //创建Scanner对象read 接受从控制台输入
             System.out.println("请输入要删除的倒数第n个结点：");
             int n = read.nextInt(); //调用Scanner类中的方法.nextInt() 对象名.方法名*/
 
             // 237 ListNode1.deleteNode(ListNode1.head.next);
+            int m =3;
+            int j = Josephus(ListNode1.head,m);
 
-            ListNode1.print(ListNode1.head);// 从head节点开始遍历输出
-            System.out.println("Print the list: ");
+            //ListNode1.print(ListNode1.head);// 从head节点开始遍历输出
+            System.out.println(j);
             // 206 ListNode1.print(ListNode1.reverseList(ListNode1.head));
             // 19  ListNode1.print(ListNode1.removeNthFromEnd(ListNode1.head,n));
             // 21 ListNode1.print(ListNode1.mergeTwoLists(ListNode1.head,ListNode2.head));
