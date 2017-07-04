@@ -5,7 +5,7 @@ import java.util.Stack;
  * Created by fatjimmy on 17/5/28.
  */
 // leetcode 572 offer 18; leetcode 101; leetcode 226 offer 19; leetcode 102 offer 23; leetcode 113 offer 25; leetcode 114;
-// offer 39 leetcode 104;
+// offer 39 leetcode 104; leetcode 236 offer 50
     // leetcode 617
 public class Bintrees {
     private static List<TreeNode> nodeList = null;
@@ -258,9 +258,34 @@ public class Bintrees {
         }
         return isBalanced(root.right) && isBalanced(root.left);
     }
+    //offer 50 leetcode 236
+    public static TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        List<TreeNode> road1 = new ArrayList<TreeNode>();
+        List<TreeNode> road2 = new ArrayList<TreeNode>();
+        traverse(root,p,road1);
+        traverse(root,q,road2);
+        int k = road1.size()>road2.size()? road2.size() :road1.size();
+        TreeNode node = null;
+        for(int m=0;m<k;m++) {
+            if(road1.get(m) == road2.get(m)){
+                node = road1.get(m);
+            }else break;
+        }
+        return node;
+    }
+    public static void traverse(TreeNode root,TreeNode i,List<TreeNode> list){
+        if(root == null) return;
+        list.add(root);
+        if(root == i) return;
+        traverse(root.left,i,list);
+        if(list.contains(i)) return;
+        traverse(root.right,i,list);
+        if(list.contains(i)) return;
+        else list.remove(list.size()-1);
+    }
     public static void main(String[] args) {
         Bintrees binTree = new Bintrees();
-        int[] array1 = {1,2,9,3,6,10,13,4,5,7,8,11,12,14,15};
+        int[] array1 = {1,2,9,3,6,6,13,4,5,7,8,11,12,14,15};
         TreeNode root1 = binTree.createBintree(array1);
         // int[] array2 = {4,1,2};
         // TreeNode root2 = binTree.createBintree(array2);
@@ -293,6 +318,7 @@ public class Bintrees {
         // leetcode 114 binTree.flatten(root1);
         // leetcode 104 int i = binTree.maxDepth(root1);
         // leetcode 110 boolean flag = binTree.isBalanced(root1);
+        // leetcode 236 TreeNode node = lowestCommonAncestor(root1,4,5);
         System.out.println();
 
         //System.out.println("balanced tree："+flag);

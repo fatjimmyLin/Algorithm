@@ -1,20 +1,30 @@
+import java.io.IOException;
+import java.sql.SQLException;
+
 /**
  * Created by fatjimmy on 17/5/30.
  */
+class people{
+    private String name;
+    private int age;
+    public people(){
+        this.name = "mijjy";
+        this.age = 27;
+    }
+    public String toString(){
+        return "name:"+name+" age"+age;
+    }
+}
 
 public class Test {
-    static {
-        System.out.println("hello 1");
+    public void dosometthing()throws ArithmeticException{
+        System.out.println();
     }
     public static void main(String[] args) {
-        outtt:
-        for(int i=0;i<5;i++){
-            for(int j=0;j<5;j++){
-                if(j>=2)
-                    break outtt;
-                System.out.println(j);
-            }
-        }
-        System.out.println("hello 2");
+//        Test ett = new Test();
+//        ett.dosometthing();
+        System.out.println(new people());
+        System.out.println(1+2+"");
+        System.out.println(""+1+2);
     }
 }
