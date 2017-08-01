@@ -4,38 +4,38 @@ import java.sql.SQLException;
 /**
  * Created by fatjimmy on 17/5/30.
  */
-class people{
-    private String name;
-    private int age;
-    public people(){
-        this.name = "mijjy";
-        this.age = 27;
-    }
-    public String toString(){
-        return "name:"+name+" age"+age;
-    }
-}
-class ThreadTest implements Runnable {
-
-    /**
-     * 重写（Override）run()方法 JVM会自动调用该方法
-     */
-    public void run() {
-        System.out.println("I'm a running!");
-    }
-}
 public class Test {
-    public void dosometthing()throws ArithmeticException{
-        System.out.println();
+    private static boolean ready;
+    private static int number;
+
+    private static class ReaderThread extends Thread {
+        public void run() {
+            try {
+                Thread.sleep(10);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            if (!ready) {
+                System.out.println(ready);
+            }
+            System.out.println(number);
+        }
     }
+
+    private static class WriterThread extends Thread {
+        public void run() {
+            try {
+                Thread.sleep(10);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            number = 100;
+            ready = true;
+        }
+    }
+
     public static void main(String[] args) {
-//        Test ett = new Test();
-//        ett.dosometthing();
-//        System.out.println(new people());
-//        System.out.println(1+2+"");
-//        System.out.println(""+1+2);
-        ThreadTest thread = new ThreadTest();
-        Thread t = new Thread(thread);
-        t.start();
+        new WriterThread().start();
+        new ReaderThread().start();
     }
 }
